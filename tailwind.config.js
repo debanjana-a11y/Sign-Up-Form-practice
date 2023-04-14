@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
 			backgroundImage: {
-				bgImage: "url('./images/bg.jpg')"
+				bgImage: "url('/images/bg.jpg')"
 			}
 		}
   },
