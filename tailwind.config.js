@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./public/*{.html, .js}"],
+  content: ["./*.html"],
   theme: {
     extend: {
 			backgroundImage: {
-				bgImage: "url('./public/images/bg.jpg')"
+				bgImage: "url('/dist/images/bg.jpg')"
 			}
 		}
   },
