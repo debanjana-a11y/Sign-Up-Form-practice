@@ -41,10 +41,12 @@ app.post('/register-user', (req, res) => {
         email === '' || email === undefined || email === null || email.length === 0 ||
         password === '' || password === undefined || password === null || password.length === 0) {
             res.status(400).json({warning : 'Fill all the fields correctly'});
+            return;
     }
     
     if (!(email.includes('@') && email.includes('.'))) {
         res.status(400).json({warning: 'Fill email address correctly'});
+        return;
     }
 
     // store in db
@@ -70,10 +72,12 @@ app.post('/login-user', (req, res) => {
     if (email === '' || email === undefined || email === null || email.length === 0 ||
         password === '' || password === undefined || password === null || password.length === 0) {
             res.status(400).json({warning : 'Fill all the fields correctly'});
+            return;
     }
     
     if (!(email.includes('@') && email.includes('.'))) {
         res.status(400).json({warning: 'Fill email address correctly'});
+        return;
     }
 
     // collect from db
@@ -87,7 +91,7 @@ app.post('/login-user', (req, res) => {
             res.status(200).json({ retVal: data[0], message: 'Login successful' });
         }
     }).catch(err => {
-        res.status(500).json(err.message);
+        res.status(500).json({error: err.message});
     });
 });
 
