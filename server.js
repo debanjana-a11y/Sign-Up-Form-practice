@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(initialPath, 'login.html'));
 });
 
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(initialPath, 'index.html'));
+});
+
 app.get('/login', (req, res) => {
     res.sendFile(path.join(initialPath, 'login.html'));
 });
@@ -36,11 +40,11 @@ app.post('/register-user', (req, res) => {
     if (name === '' || name === undefined || name === null || name.length === 0||
         email === '' || email === undefined || email === null || email.length === 0 ||
         password === '' || password === undefined || password === null || password.length === 0) {
-            res.json('Fill all the fields correctly');
+            res.status(400).json({warning : 'Fill all the fields correctly'});
     }
     
     if (!(email.includes('@') && email.includes('.'))) {
-        res.json('Fill email address correctly');
+        res.status(400).json({warning: 'Fill email address correctly'});
     }
 
     // store in db
@@ -49,24 +53,27 @@ app.post('/register-user', (req, res) => {
         email: email,
         password: password
     }).returning(["name", "email"]).then(data => {
-        console.log(data);
-        res.json(data[0]); // data = [ { name: 'muchi', email: 'muchiko@gmail.com' } ]
+        res.status(200).json({
+            data : data[0]
+        }); // data = [ { name: 'muchi', email: 'muchiko@gmail.com' } ]
     }).catch(err => {
-        if (err.detail.includes('already exists')) {
-            res.json('Registered user already exists');
+        if ((err.error !== undefined && err.error.includes('duplicate')) || err.detail.includes('already exists')) {
+            res.status(409).json({ error: 'Registered user already exists' });
+        } else {
+            res.status(500).json({ error: 'Unknown Error Occured. Please Try Again.' });
         }
-        console.log(err)});
+    });
 });
 
 app.post('/login-user', (req, res) => {
     const {email, password} = req.body;
     if (email === '' || email === undefined || email === null || email.length === 0 ||
         password === '' || password === undefined || password === null || password.length === 0) {
-            res.json('Fill all the fields correctly');
+            res.status(400).json({warning : 'Fill all the fields correctly'});
     }
     
     if (!(email.includes('@') && email.includes('.'))) {
-        res.json('Fill email address correctly');
+        res.status(400).json({warning: 'Fill email address correctly'});
     }
 
     // collect from db
@@ -75,12 +82,12 @@ app.post('/login-user', (req, res) => {
         password: password
     }).then(data => {
         if (data.length == 0) {
-            res.json('User Not Found');
+            res.status(404).json({ error: 'User Not Found' });
         } else {
-            res.json('Login successful');
+            res.status(200).json({ retVal: data[0], message: 'Login successful' });
         }
     }).catch(err => {
-        res.json(err);
+        res.status(500).json(err.message);
     });
 });
 
