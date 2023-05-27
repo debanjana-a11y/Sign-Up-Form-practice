@@ -70,6 +70,7 @@ const validateForm = () => {
             }
             const {name, email} = data.data;
             alert(`Registration successful for user: ${name}`);
+            location.href = '/login';
         }).catch(err => {
             alert(`Failed to register, ${err.message}`);
         });

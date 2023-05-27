@@ -1,6 +1,7 @@
-const name = sessionStorage.name;
+const userName = sessionStorage.name;
 let greeting = document.getElementById('greeting');
-greeting.innerHTML = 'Konnichiwa ' + name;
+if (userName === undefined) location.href = '/login';
+greeting.innerHTML = 'Konnichiwa ' + userName;
 
 const logoutBtn = document.getElementById('logout');
 if (logoutBtn !== null) {
