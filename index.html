@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./dist/output.css">
+    <script src="js/home.js" defer></script>
 </head>
 <body class="h-screen">
-    <container class="block h-full bg-bgImage bg-center flex flex-col justify-center items-center">
+    <container class="block h-full bg-[url('/dist/images/bg.jpg')] bg-center flex flex-col justify-center items-center">
         <!-- Photo by <a href="https://unsplash.com/it/@pierre9x6?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pierre Blaché</a> on <a href="https://unsplash.com/photos/bCXa87fQd7Y?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
         <div class="relative h-1/2 w-full sm:w-1/2 border-white border-2 borer-solid bg-black/60 rounded-3xl flex flex-col justify-center items-center gap-y-10">
-            <button class="font-serif sm:absolute sm:top-5 sm:right-5 text-teal-800 bg-yellow-200 font-bold text-lg p-3 rounded-2xl cursor-pointer hover:underline hover:bg-orange-300">Log Out</button>
-            <h1 class="text-white italic text-3xl word-break text-center">Good Morning Debanjana</h1>   
+            <button class="font-serif sm:absolute sm:top-5 sm:right-5 text-teal-800 bg-yellow-200 font-bold text-lg p-3 rounded-2xl cursor-pointer hover:underline hover:bg-orange-300" id="logout">Log Out</button>
+            <h1 class="text-white italic text-3xl word-break text-center" id="greeting">Good Morning</h1>   
         </div>
     </container>
 </body>
