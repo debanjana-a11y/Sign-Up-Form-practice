@@ -1,5 +1,6 @@
 const initialPath = location.pathname;
 const loginPath = initialPath + '/login';
+console.log(loginPath);
 
 const userName = sessionStorage.name;
 let greeting = document.getElementById('greeting');
