@@ -2,6 +2,7 @@ const express = require('express');
 const knex = require('knex');
 const bodyParser = require('body-parser');
 const path = require('path');
+const port = process.env.PORT || 5000;
 
 const db = knex({
     client: 'pg',
@@ -59,7 +60,8 @@ app.post('/register-user', (req, res) => {
             data : data[0]
         }); // data = [ { name: 'muchi', email: 'muchiko@gmail.com' } ]
     }).catch(err => {
-        if ((err.error !== undefined && err.error.includes('duplicate')) || err.detail.includes('already exists')) {
+        if ((err.error !== undefined && err.error.includes('duplicate'))||
+            (err.detail !== undefined && err.detail.includes('already exists'))) {
             res.status(409).json({ error: 'Registered user already exists' });
         } else {
             res.status(500).json({ error: 'Unknown Error Occured. Please Try Again.' });
@@ -95,8 +97,8 @@ app.post('/login-user', (req, res) => {
     });
 });
 
-app.listen(5000, (req, res) => {
-    console.log('Server is running on port 5000 ....');
+app.listen(port, (req, res) => {
+    console.log(`Server is running on port ${port} ....`);
 });
 
 
